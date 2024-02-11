@@ -1,0 +1,11 @@
+cab
+bca
+bac
+b
+acb
+abc
+a
+321
+32
+21
+123
