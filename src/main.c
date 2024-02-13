@@ -15,6 +15,7 @@
 #include "expr/expr.h"
 #include "tail.h"
 #include "sort.h"
+#include "dcl/dcl.h"
 
 #define INIT(x) { \
     int err = x; \
@@ -61,6 +62,8 @@ int main(int argc, const char **argv) {
     } else if (strcmp(subroutine_name, "sort") == 0) {
         INIT(sort_init(subroutine_argc, subroutine_argv))
         function_ptr = &sort;
+    } else if (strcmp(subroutine_name, "dcl") == 0) {
+        function_ptr = &dcl_main;
     } else {
         fprintf(stderr, "Unknown subroutine %s", subroutine_name);
         return -1;

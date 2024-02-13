@@ -35,6 +35,10 @@ add_library(common STATIC
         utils/queue.h
         sort.c
         sort.h
+        dcl/dcl.c
+        dcl/dcl.h
+        dcl/dcl_tokenizer.c
+        dcl/dcl_tokenizer.h
 )
 
 target_include_directories(common PUBLIC
