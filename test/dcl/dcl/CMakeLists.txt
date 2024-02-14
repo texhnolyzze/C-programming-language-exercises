@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 
 add_executable(dcl_tests dcl_tests.c)
 
-foreach (i RANGE 1 10)
+foreach (i RANGE 1 11)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test_${i}.txt
             DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endforeach ()

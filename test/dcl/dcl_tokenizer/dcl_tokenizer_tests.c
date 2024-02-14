@@ -11,7 +11,7 @@ void tearDown() {
 
 }
 
-void test_get_token() {
+void test_count_keywords() {
     invoke_test_file("test_1.txt");
     TEST_ASSERT_EQUAL_INT(PARENS, token_type);
     TEST_ASSERT_EQUAL_STRING("()", token);
@@ -29,8 +29,8 @@ void test_get_token() {
     TEST_ASSERT_EQUAL_STRING("abra123", token);
 
     invoke_test_file("test_5.txt");
-    TEST_ASSERT_EQUAL_INT('(', token_type);
-    TEST_ASSERT_EQUAL_STRING("(", token);
+    TEST_ASSERT_EQUAL_INT(PARENS, token_type);
+    TEST_ASSERT_EQUAL_STRING("()", token);
 
     invoke_test_file("test_6.txt");
     TEST_ASSERT_EQUAL_INT(NAME, token_type);
@@ -45,6 +45,10 @@ void test_get_token() {
     invoke_test_file("test_9.txt");
     TEST_ASSERT_EQUAL_INT(CONST, token_type);
     TEST_ASSERT_EQUAL_STRING("const", token);
+
+    invoke_test_file("test_10.txt");
+    TEST_ASSERT_EQUAL_INT(PARENS, token_type);
+    TEST_ASSERT_EQUAL_STRING("()", token);
 }
 
 void invoke_test_file(char *filename) {
@@ -54,6 +58,6 @@ void invoke_test_file(char *filename) {
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_get_token);
+    RUN_TEST(test_count_keywords);
     return UNITY_END();
 }

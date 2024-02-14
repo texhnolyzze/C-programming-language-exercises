@@ -33,6 +33,7 @@ void test() {
     invoke_test_file("test_8.txt", "c:  array[13] of int");
     invoke_test_file("test_9.txt", "x:  array[3] of pointer to function(y:  array[15] of int, z:  array[16] of array[17] of int) returning pointer to char");
     invoke_test_file("test_10.txt", "f:  function(x:  pointer to int) returning pointer to char");
+    invoke_test_file("test_11.txt", "pfa:  array[13] of pointer to function(x:  function(y:  function() returning pointer to char, z:  function() returning pointer to char) returning pointer to int) returning pointer to int");
 }
 
 void invoke_test_file(char *filename, char *expected) {

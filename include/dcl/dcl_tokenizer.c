@@ -17,7 +17,10 @@ int get_token(void) {
 //      NOP
     }
     if (c == '(') {
-        if ((c = getchar()) == ')') {
+        while ((c = getchar()) == ' ' || c == '\t') {
+//          NOP
+        }
+        if (c == ')') {
             strcpy(token, "()");
             return token_type = PARENS;
         } else {
