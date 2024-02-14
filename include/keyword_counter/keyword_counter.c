@@ -43,6 +43,8 @@ struct key key_table[] = {
         "while", 0
 };
 
+#define N_KEYWORDS sizeof(key_table) / sizeof(key_table[0])
+
 int cmp(char *word, struct key key) {
     return strcmp(word, key.word);
 }

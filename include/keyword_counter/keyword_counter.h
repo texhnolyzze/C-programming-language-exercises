@@ -16,8 +16,6 @@ struct key {
 
 extern struct key key_table[];
 
-#define N_KEYWORDS sizeof(key_table) / sizeof(key_table[0])
-
 void count_keywords(void);
 
 size_t n_keywords();
