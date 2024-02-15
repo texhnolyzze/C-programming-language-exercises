@@ -2,8 +2,8 @@
 // Created by ikarimullin on 15.02.2024.
 //
 
-#ifndef SANDBOXTEST_KEYWORD_COUNTER_H
-#define SANDBOXTEST_KEYWORD_COUNTER_H
+#ifndef SANDBOXTEST_CLANG_KEYWORD_COUNTER_H
+#define SANDBOXTEST_CLANG_KEYWORD_COUNTER_H
 
 #include <corecrt.h>
 
@@ -20,4 +20,4 @@ void count_keywords(void);
 
 size_t n_keywords();
 
-#endif //SANDBOXTEST_KEYWORD_COUNTER_H
+#endif //SANDBOXTEST_CLANG_KEYWORD_COUNTER_H

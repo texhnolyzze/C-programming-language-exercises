@@ -4,7 +4,7 @@
 
 #include <ctype.h>
 #include <stdio.h>
-#include "keyword_tokenizer.h"
+#include "clang_keyword_tokenizer.h"
 
 int skip_non_keyword_content();
 

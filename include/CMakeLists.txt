@@ -39,10 +39,12 @@ add_library(common STATIC
         dcl/dcl.h
         dcl/dcl_tokenizer.c
         dcl/dcl_tokenizer.h
-        keyword_counter/keyword_tokenizer.c
-        keyword_counter/keyword_tokenizer.h
-        keyword_counter/keyword_counter.c
-        keyword_counter/keyword_counter.h
+        clang_keyword_counter/clang_keyword_tokenizer.c
+        clang_keyword_counter/clang_keyword_tokenizer.h
+        clang_keyword_counter/clang_keyword_counter.c
+        clang_keyword_counter/clang_keyword_counter.h
+        utils/binary_tree.c
+        utils/binary_tree.h
 )
 
 target_include_directories(common PUBLIC

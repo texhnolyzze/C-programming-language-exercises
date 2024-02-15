@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "keyword_counter/keyword_tokenizer.h"
+#include "clang_keyword_counter/clang_keyword_tokenizer.h"
 
 void invoke_test_file(char *filename);
 

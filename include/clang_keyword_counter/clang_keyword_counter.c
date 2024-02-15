@@ -5,8 +5,9 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>
-#include "keyword_counter.h"
-#include "keyword_tokenizer.h"
+#include <ctype.h>
+#include "clang_keyword_counter.h"
+#include "clang_keyword_tokenizer.h"
 
 struct key key_table[] = {
         "auto", 0,
@@ -55,19 +56,20 @@ void count_keywords(void) {
     }
     char *word = malloc((MAXWORD + 1) * sizeof(char));
     if (word == NULL) {
-        printf("count_keywords: not enough memory");
+        printf("count_keywords: not enough memory\n");
         return;
     }
     while (get_keyword(word, MAXWORD) != EOF) {
-        struct key *k = bsearch(word, key_table, N_KEYWORDS, sizeof(key_table[0]), (int (*)(const void *, const void *)) cmp);
-        if (k != nullptr) {
-            k->count++;
+        if (isalpha(*word) || *word == '_' || *word == '$') {
+            struct key *k = bsearch(word, key_table, N_KEYWORDS, sizeof(key_table[0]), (int (*)(const void *, const void *)) cmp);
+            if (k != nullptr) {
+                k->count++;
+            }
         }
     }
-    for (int i = 0; i < N_KEYWORDS; ++i) {
-        struct key key = key_table[i];
-        if (key.count > 0) {
-            printf("%4zu %s\n", key.count, key.word);
+    for (struct key *key = key_table; key < key_table + N_KEYWORDS; key++) {
+        if (key->count > 0) {
+            printf("%4zu %s\n", key->count, key->word);
         }
     }
     free(word);

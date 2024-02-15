@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.27)
+
+add_subdirectory(clang_keyword_tokenizer)
+add_subdirectory(clang_keyword_counter)

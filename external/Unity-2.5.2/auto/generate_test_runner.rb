@@ -162,7 +162,7 @@ class UnityTestRunnerGenerator
 
     tests_and_line_numbers.uniq! { |v| v[:test] }
 
-    # determine line numbers and create tests to run
+    # determine line numbers and binary_tree_create tests to run
     source_lines = source.split("\n")
     source_index = 0
     tests_and_line_numbers.size.times do |i|

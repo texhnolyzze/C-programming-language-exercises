@@ -1,6 +1,6 @@
 #include <string.h>
 #include "unity.h"
-#include "keyword_counter/keyword_counter.h"
+#include "clang_keyword_counter/clang_keyword_counter.h"
 
 void invoke_test_file(char *filename);
 

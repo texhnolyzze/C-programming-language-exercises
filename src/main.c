@@ -16,7 +16,7 @@
 #include "tail.h"
 #include "sort.h"
 #include "dcl/dcl.h"
-#include "keyword_counter/keyword_counter.h"
+#include "clang_keyword_counter/clang_keyword_counter.h"
 
 #define INIT(x) { \
     int err = x; \
@@ -65,7 +65,7 @@ int main(int argc, const char **argv) {
         function_ptr = &sort;
     } else if (strcmp(subroutine_name, "dcl") == 0) {
         function_ptr = &dcl_main;
-    } else if (strcmp(subroutine_name, "keyword_counter") == 0) {
+    } else if (strcmp(subroutine_name, "clang_keyword_counter") == 0) {
         function_ptr = &count_keywords;
     } else {
         fprintf(stderr, "Unknown subroutine %s", subroutine_name);
