@@ -1,0 +1,5 @@
+In all cases
+if your application
+is holding data which has not been
+synchronized to disk and
+which has some potential

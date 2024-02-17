@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "dcl/dcl_tokenizer.h"
+#include "utils/test_utils/test_utils.h"
 
 void invoke_test_file(char *filename);
 
@@ -52,7 +53,7 @@ void test_count_keywords() {
 }
 
 void invoke_test_file(char *filename) {
-    freopen(filename, "r", stdin);
+    stdin_from_file(filename);
     get_token();
 }
 

@@ -1,7 +1,3 @@
-//
-// Created by ikarimullin on 14.02.2024.
-//
-
 #include <ctype.h>
 #include <stdio.h>
 #include "clang_keyword_tokenizer.h"

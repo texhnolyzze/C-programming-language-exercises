@@ -1,11 +1,11 @@
-//
-// Created by ikarimullin on 24.01.2024.
-//
+
 
 #include <unity.h>
 #include <expr/op_parser.h>
+#include <stdbool.h>
 #include "expr/expr.h"
-#include "utils/io.h"
+#include "utils/io/io.h"
+#include "utils/test_utils/test_utils.h"
 
 void setUp(void) {}
 
@@ -77,22 +77,13 @@ void test_getop(void) {
     TEST_ASSERT_EQUAL_size_t(2, total_offset);
 }
 
-void restore_stdout(void) {
-#ifdef _WIN32
-    freopen("CON", "w", stdout);
-#endif
-#ifdef __unix__
-    freopen("/dev/tty", "w", stdout);
-#endif
-}
-
 void test(const char *expr, double expected) {
-    freopen("expr_tests_out.txt", "w", stdout);
+    stdout_to_file("expr_tests_out.txt");
     struct stack *s = stack_create(100);
     evaluate_expr(expr, s);
     restore_stdout();
-    stack_free(s);
-    freopen("expr_tests_out.txt", "r", stdin);
+    stack_free(s, false);
+    stdin_from_file("expr_tests_out.txt");
     int read_line_exit_code;
     size_t chars_read;
     char *line = read_line_dyn(100, 100, &read_line_exit_code, &chars_read);

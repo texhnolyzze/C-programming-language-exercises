@@ -1,6 +1,4 @@
-//
-// Created by ikarimullin on 15.02.2024.
-//
+
 
 #ifndef SANDBOXTEST_CLANG_KEYWORD_COUNTER_H
 #define SANDBOXTEST_CLANG_KEYWORD_COUNTER_H

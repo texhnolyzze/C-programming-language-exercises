@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "unity.h"
-#include "utils/binary_tree.h"
+#include "utils/binary_tree/binary_tree.h"
 
 void setUp() {
     time_t rawtime;
@@ -30,7 +30,12 @@ int cmp(int l, int r) {
 
 void assert_value(struct btree_node *root, int key, int expected) {
     struct btree_node *node = binary_tree_search(root, (void *) key, (int (*)(const void *, const void *)) cmp);
-    TEST_ASSERT_EQUAL_INT(expected, node->value);
+    if (expected == 0) {
+        TEST_ASSERT_NULL(node);
+    } else {
+        TEST_ASSERT_NOT_NULL(node);
+        TEST_ASSERT_EQUAL_INT(expected, node->value);
+    }
 }
 
 void test() {
@@ -38,11 +43,12 @@ void test() {
     int (*cmp_func)(const void *, const void *) = (int (*)(const void *, const void *)) cmp;
     binary_tree_put(root, (void *) 1, (void *) 2, cmp_func);
     assert_value(root, 1, 2);
-    TEST_ASSERT_EQUAL_INT(2, binary_tree_put(root, (void *) 1, (void *) 3, cmp_func));
+    binary_tree_put(root, (void *) 1, (void *) 3, cmp_func);
     assert_value(root, 1, 3);
     binary_tree_put(root, (void *) -1, (void *) 4, cmp_func);
     assert_value(root, -1, 4);
-    TEST_ASSERT_EQUAL(NULL, binary_tree_put(root, (void *) 5, (void *) 7, cmp_func));
+    assert_value(root, 5, 0);
+    binary_tree_put(root, (void *) 5, (void *) 7, cmp_func);
     assert_value(root, 5, 7);
     binary_tree_free(root, false, false);
 }
@@ -62,13 +68,13 @@ void random_test() {
     }
     struct btree_node *root = binary_tree_create();
     for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-        void *prev_value = binary_tree_put(
+        TEST_ASSERT_EQUAL(NULL, binary_tree_search(root, (void *) data[i].key, (int (*)(const void *, const void *)) cmp));
+        binary_tree_put(
                 root,
                 (void *) data[i].key,
                 (void *) data[i].value,
                 (int (*)(const void *, const void *)) cmp
         );
-        TEST_ASSERT_EQUAL(NULL, prev_value);
     }
     for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
         struct btree_node *node = binary_tree_search(

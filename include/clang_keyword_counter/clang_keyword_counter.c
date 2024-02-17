@@ -1,7 +1,3 @@
-//
-// Created by ikarimullin on 15.02.2024.
-//
-
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>

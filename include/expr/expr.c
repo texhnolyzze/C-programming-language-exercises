@@ -1,15 +1,14 @@
-//
-// Created by ikarimullin on 24.01.2024.
-//
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
 #include "expr.h"
-#include "../utils/stack.h"
+#include "utils/stack/stack.h"
 #include "op_parser.h"
-#include "utils/io.h"
+#include "utils/io/io.h"
 
 #define PUSH_STR(stck, str) \
     double *x = malloc(sizeof(double)); \
@@ -46,11 +45,11 @@ void expr(void) {
         line = read_line_dyn(MAX_EXPRESSION_CHARS, 64, &read_line_exit_code, &chars_read);
         if (read_line_exit_code == -2) {
             fprintf(stderr, "expr: read_line not enough memory\n");
-            stack_free(s);
+            stack_free(s, true);
             break;
         } else if (read_line_exit_code == -1 && chars_read == 0) {
             free(line);
-            stack_free(s);
+            stack_free(s, true);
             break;
         }
         evaluate_expr(line, s);
@@ -114,7 +113,7 @@ void evaluate_expr(const char *line, struct stack *s) {
     }
     if (stack_size(s) != 1) {
         fprintf(stderr, "Stack size != 1 at the end of expression eval\n");
-        stack_clear(s);
+        stack_clear(s, true);
     } else {
         POP(s, d_ptr, temp1)
         printf("%f\n", temp1);

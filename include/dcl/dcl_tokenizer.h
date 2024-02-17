@@ -1,6 +1,4 @@
-//
-// Created by ikarimullin on 12.02.2024.
-//
+
 
 #ifndef SANDBOXTEST_DCL_TOKENIZER_H
 #define SANDBOXTEST_DCL_TOKENIZER_H

@@ -1,9 +1,7 @@
-//
-// Created by ikarimullin on 26.01.2024.
-//
+
 
 #include "unity.h"
-#include "utils/stack.h"
+#include "utils/stack/stack.h"
 
 void setUp() {
 
@@ -32,7 +30,7 @@ void test() {
     double d3 = 3.0;
     stack_push(s, &d3);
     TEST_ASSERT_EQUAL_INT(4, stack_size(s));
-    stack_clear(s);
+    stack_clear(s, false);
     TEST_ASSERT_EQUAL_INT(0, stack_size(s));
 }
 

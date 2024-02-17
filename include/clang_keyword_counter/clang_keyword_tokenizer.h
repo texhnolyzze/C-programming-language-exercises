@@ -1,6 +1,4 @@
-//
-// Created by ikarimullin on 14.02.2024.
-//
+
 
 #include <corecrt.h>
 

@@ -1,7 +1,3 @@
-//
-// Created by ikarimullin on 12.02.2024.
-//
-
 #include <string.h>
 #include <ctype.h>
 #include "dcl_tokenizer.h"
@@ -40,6 +36,8 @@ int get_token(void) {
             if (c == ']') {
                 *token_ptr++ = c;
                 break;
+            } else if (c == ' ' || c == '\t') {
+                continue;
             } else if (c == EOF || !isdigit(c)) {
                 printf("invalid character after [: '%c'\n", (char) c);
                 *token = '\0';

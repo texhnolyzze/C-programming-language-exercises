@@ -1,9 +1,7 @@
-//
-// Created by ikarimullin on 26.01.2024.
-//
+
 
 #include "unity.h"
-#include "utils/strings.h"
+#include "utils/strings/strings.h"
 
 void setUp() {
 

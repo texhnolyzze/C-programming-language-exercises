@@ -1,40 +1,40 @@
 cmake_minimum_required(VERSION 3.27)
 
 add_library(common STATIC
-        utils/strings.h
-        utils/io.c
-        utils/io.h
-        utils/strings.c
-        detab.c
-        detab.h
-        entab.c
-        entab.h
-        utils/single_positive_int_arg_parser.c
-        utils/single_positive_int_arg_parser.h
-        fold.c
-        fold.h
-        c_comment_remover.c
-        c_comment_remover.h
-        print_ranges.c
-        print_ranges.h
-        htoi.c
-        htoi.h
-        squeeze.c
-        squeeze.h
-        anychar.c
-        anychar.h
+        utils/strings/strings.h
+        utils/io/io.c
+        utils/io/io.h
+        utils/strings/strings.c
+        detab/detab.c
+        detab/detab.h
+        entab/entab.c
+        entab/entab.h
+        utils/single_positive_int_arg_parser/single_positive_int_arg_parser.c
+        utils/single_positive_int_arg_parser/single_positive_int_arg_parser.h
+        fold/fold.c
+        fold/fold.h
+        clang_comment_remover/clang_comment_remover.c
+        clang_comment_remover/clang_comment_remover.h
+        print_ranges/print_ranges.c
+        print_ranges/print_ranges.h
+        htoi/htoi.c
+        htoi/htoi.h
+        squeeze/squeeze.c
+        squeeze/squeeze.h
+        anychar/anychar.c
+        anychar/anychar.h
         expr/expr.c
         expr/expr.h
-        utils/stack.c
-        utils/stack.h
+        utils/stack/stack.c
+        utils/stack/stack.h
         expr/op_parser.c
         expr/op_parser.h
-        tail.c
-        tail.h
-        utils/queue.c
-        utils/queue.h
-        sort.c
-        sort.h
+        tail/tail.c
+        tail/tail.h
+        utils/queue/queue.c
+        utils/queue/queue.h
+        sort/sort.c
+        sort/sort.h
         dcl/dcl.c
         dcl/dcl.h
         dcl/dcl_tokenizer.c
@@ -43,8 +43,16 @@ add_library(common STATIC
         clang_keyword_counter/clang_keyword_tokenizer.h
         clang_keyword_counter/clang_keyword_counter.c
         clang_keyword_counter/clang_keyword_counter.h
-        utils/binary_tree.c
-        utils/binary_tree.h
+        utils/binary_tree/binary_tree.c
+        utils/binary_tree/binary_tree.h
+        cross_referencer/cross_referencer.c
+        cross_referencer/cross_referencer.h
+        utils/list/list.c
+        utils/list/list.h
+        utils/word_tokenizer/word_tokenizer.c
+        utils/word_tokenizer/word_tokenizer.h
+        utils/test_utils/test_utils.h
+        utils/test_utils/test_utils.c
 )
 
 target_include_directories(common PUBLIC

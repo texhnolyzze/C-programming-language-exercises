@@ -1,22 +1,19 @@
-//
-// Created by ikarimullin on 10.01.2024.
-//
-
 #include <stdio.h>
 #include <string.h>
-#include "fold.h"
-#include "entab.h"
-#include "detab.h"
-#include "c_comment_remover.h"
-#include "print_ranges.h"
-#include "htoi.h"
-#include "squeeze.h"
-#include "anychar.h"
+#include "fold/fold.h"
+#include "entab/entab.h"
+#include "detab/detab.h"
+#include "clang_comment_remover/clang_comment_remover.h"
+#include "print_ranges/print_ranges.h"
+#include "htoi/htoi.h"
+#include "squeeze/squeeze.h"
+#include "anychar/anychar.h"
 #include "expr/expr.h"
-#include "tail.h"
-#include "sort.h"
+#include "tail/tail.h"
+#include "sort/sort.h"
 #include "dcl/dcl.h"
 #include "clang_keyword_counter/clang_keyword_counter.h"
+#include "cross_referencer/cross_referencer.h"
 
 #define INIT(x) { \
     int err = x; \
@@ -67,6 +64,9 @@ int main(int argc, const char **argv) {
         function_ptr = &dcl_main;
     } else if (strcmp(subroutine_name, "clang_keyword_counter") == 0) {
         function_ptr = &count_keywords;
+    } else if (strcmp(subroutine_name, "cross_reference") == 0) {
+        INIT(cross_reference_init(subroutine_argc, subroutine_argv))
+        function_ptr = &cross_reference;
     } else {
         fprintf(stderr, "Unknown subroutine %s", subroutine_name);
         return -1;

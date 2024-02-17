@@ -1,10 +1,9 @@
-//
-// Created by ikarimullin on 26.01.2024.
-//
+
 
 #include <malloc.h>
+#include <stdbool.h>
 #include "unity.h"
-#include "utils/queue.h"
+#include "utils/queue/queue.h"
 
 void setUp() {
 
@@ -64,7 +63,7 @@ void test() {
     TEST_ASSERT_EQUAL_INT(1, queue_size(q));
     TEST_ASSERT_EQUAL_INT(0, queue_remove(q));
 
-    queue_free(q);
+    queue_free(q, false);
 }
 
 int main(void) {

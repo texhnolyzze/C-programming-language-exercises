@@ -1,28 +1,16 @@
-//
-// Created by ikarimullin on 24.01.2024.
-//
-
 #include <unity.h>
-#include "utils/io.h"
-#include "sort.h"
+#include "utils/io/io.h"
+#include "sort/sort.h"
 #include "malloc.h"
+#include "utils/test_utils/test_utils.h"
 
 void setUp(void) {}
 
 void tearDown(void) {}
 
-void restore_stdout(void) {
-#ifdef _WIN32
-    freopen("CON", "w", stdout);
-#endif
-#ifdef __unix__
-    freopen("/dev/tty", "w", stdout);
-#endif
-}
-
 #define test(input_file, output_file, answer_file, numeric, reverse, case_insensitive) \
-    freopen(input_file, "r", stdin); \
-    freopen(output_file, "w", stdout); \
+    stdin_from_file(input_file); \
+    stdout_to_file(output_file); \
     char **argv = malloc(3 * sizeof (char *));                                                                              \
     int argc = 0;                                                                          \
     if (reverse) {                                                            \
@@ -40,11 +28,11 @@ void restore_stdout(void) {
      \
     int read_lines_exit_code; \
     size_t expected_lines_read; \
-    freopen(answer_file, "r", stdin); \
+    stdin_from_file(answer_file); \
     char **expected_lines = read_lines_dyn(100, 100, 100, &read_lines_exit_code, &expected_lines_read); \
     \
     size_t actual_lines_read; \
-    freopen(output_file, "r", stdin); \
+    stdin_from_file(output_file); \
     char **actual_lines = read_lines_dyn(100, 100, 100, &read_lines_exit_code, &actual_lines_read); \
     TEST_ASSERT_EQUAL_size_t(expected_lines_read, actual_lines_read); \
     \

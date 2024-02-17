@@ -1,6 +1,4 @@
-//
-// Created by ikarimullin on 24.01.2024.
-//
+
 
 #ifndef SANDBOX_OP_PARSER_H
 #define SANDBOX_OP_PARSER_H

@@ -1,6 +1,7 @@
 #include <string.h>
 #include "unity.h"
 #include "clang_keyword_counter/clang_keyword_counter.h"
+#include "utils/test_utils/test_utils.h"
 
 void invoke_test_file(char *filename);
 
@@ -26,7 +27,7 @@ void test_count_keywords() {
 }
 
 void invoke_test_file(char *filename) {
-    freopen(filename, "r", stdin);
+    stdin_from_file(filename);
     count_keywords();
 }
 

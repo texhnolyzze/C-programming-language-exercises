@@ -1,16 +1,7 @@
-#include <stdio.h>
 #include "unity.h"
 #include "dcl/dcl.h"
-#include "utils/io.h"
-
-void restore_stdout(void) {
-#ifdef _WIN32
-    freopen("CON", "w", stdout);
-#endif
-#ifdef __unix__
-    freopen("/dev/tty", "w", stdout);
-#endif
-}
+#include "utils/io/io.h"
+#include "utils/test_utils/test_utils.h"
 
 void invoke_test_file(char *filename, char *expected);
 
@@ -37,11 +28,11 @@ void test() {
 }
 
 void invoke_test_file(char *filename, char *expected) {
-    freopen(filename, "r", stdin);
-    freopen("ans.txt", "w", stdout);
+    stdin_from_file(filename);
+    stdout_to_file("ans.txt");
     dcl_main();
     restore_stdout();
-    freopen("ans.txt", "r", stdin);
+    stdin_from_file("ans.txt");
     int exit_code;
     size_t chars_read;
     char *line = read_line_dyn(1000, 1000, &exit_code, &chars_read);

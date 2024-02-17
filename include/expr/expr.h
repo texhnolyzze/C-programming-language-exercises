@@ -1,11 +1,9 @@
-//
-// Created by ikarimullin on 24.01.2024.
-//
+
 
 #ifndef SANDBOX_CALCULATOR_H
 #define SANDBOX_CALCULATOR_H
 
-#include "utils/stack.h"
+#include "utils/stack/stack.h"
 
 extern const char POSSIBLE_OPERATIONS[8][4];
 
