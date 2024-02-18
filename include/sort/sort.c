@@ -1,8 +1,7 @@
-
-
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "sort.h"
 #include "utils/io/io.h"
 #include "utils/strings/strings.h"

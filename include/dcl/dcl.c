@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
+#include <stdbool.h>
 #include "dcl.h"
 
 void dcl(bool function_argument, char *name, char *datatype, char *out);

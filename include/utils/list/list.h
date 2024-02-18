@@ -2,6 +2,7 @@
 #define SANDBOXTEST_LIST_H
 
 #include <corecrt.h>
+#include "stdbool.h"
 
 struct list {
     size_t size;

@@ -1,6 +1,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "binary_tree.h"
 
 struct btree *binary_tree_create(const int (*cmp)(const void *, const void *)) {

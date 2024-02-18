@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "clang_keyword_tokenizer.h"
 
 int skip_non_keyword_content();

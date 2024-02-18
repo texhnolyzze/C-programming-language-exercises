@@ -1,6 +1,7 @@
 
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "fold.h"
 #include "utils/single_positive_int_arg_parser/single_positive_int_arg_parser.h"
 

@@ -31,7 +31,7 @@ char *read_line_dyn(size_t limit, size_t initial_size, int *exit_code, size_t *c
         fprintf(stderr, "read_line_dyn: not enough memory\n");
         *exit_code = -2;
         *chars_read = 0;
-        return nullptr;
+        return NULL;
     }
     size_t i = 0;
     int c = 0;
@@ -51,7 +51,7 @@ char *read_line_dyn(size_t limit, size_t initial_size, int *exit_code, size_t *c
                 free(line);
                 *exit_code = -2;
                 *chars_read = 0;
-                return nullptr;
+                return NULL;
             }
             line = temp;
             curr_size = new_size;

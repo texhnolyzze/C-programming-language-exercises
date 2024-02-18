@@ -1,5 +1,6 @@
 #include <malloc.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "list.h"
 
 struct list *list_create() {

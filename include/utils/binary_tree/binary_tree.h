@@ -1,7 +1,7 @@
-
-
 #ifndef SANDBOXTEST_BINARY_TREE_H
 #define SANDBOXTEST_BINARY_TREE_H
+
+#include "stdbool.h"
 
 struct btree_node {
     void *key;

@@ -1,4 +1,5 @@
 #include <unity.h>
+#include <stdbool.h>
 #include "utils/io/io.h"
 #include "sort/sort.h"
 #include "malloc.h"

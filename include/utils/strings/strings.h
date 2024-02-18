@@ -3,6 +3,8 @@
 #ifndef SANDBOX_ARRAYS_H
 #define SANDBOX_ARRAYS_H
 
+#include <stdbool.h>
+
 void copy(const char from[], int fromStartIdx, char to[], int toStartIdx, int howMuch);
 
 char *clone(const char *src);

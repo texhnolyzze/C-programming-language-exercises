@@ -1,5 +1,3 @@
-
-
 #include <string.h>
 #include <malloc.h>
 #include <ctype.h>

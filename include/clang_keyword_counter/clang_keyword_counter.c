@@ -58,7 +58,7 @@ void count_keywords(void) {
     while (get_keyword(word, MAXWORD) != EOF) {
         if (isalpha(*word) || *word == '_' || *word == '$') {
             struct key *k = bsearch(word, key_table, N_KEYWORDS, sizeof(key_table[0]), (int (*)(const void *, const void *)) cmp);
-            if (k != nullptr) {
+            if (k != NULL) {
                 k->count++;
             }
         }

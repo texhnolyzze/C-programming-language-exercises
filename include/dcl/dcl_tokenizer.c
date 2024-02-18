@@ -1,5 +1,6 @@
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "dcl_tokenizer.h"
 #include "stdio.h"
 

@@ -1,48 +1,49 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "clang_comment_remover.h"
 
 void remove_comments(void) {
-    int currentChar;
-    int prevChar = '\0';
-    bool insideString = false;
-    bool insideSingleLineComment = false;
-    bool insideMultilineComment = false;
-    while ((currentChar = getchar()) != EOF) {
-        if (insideString) {
-            if (currentChar == '"' && prevChar != '\\') {
-                insideString = false;
-                prevChar = '\0';
+    int current_char;
+    int prev_char = '\0';
+    bool inside_string = false;
+    bool inside_single_line_comment = false;
+    bool inside_multiline_comment = false;
+    while ((current_char = getchar()) != EOF) {
+        if (inside_string) {
+            if (current_char == '"' && prev_char != '\\') {
+                inside_string = false;
+                prev_char = '\0';
             }
-        } else if (insideSingleLineComment) {
-            if (currentChar == '\n') {
-                insideSingleLineComment = false;
-                prevChar = '\0';
-                currentChar = '\0';
+        } else if (inside_single_line_comment) {
+            if (current_char == '\n') {
+                inside_single_line_comment = false;
+                prev_char = '\0';
+                current_char = '\0';
                 putchar('\n');
             }
-        } else if (insideMultilineComment) {
-            if (currentChar == '/' && prevChar == '*') {
-                insideMultilineComment = false;
-                prevChar = '\0';
-                currentChar = '\0';
+        } else if (inside_multiline_comment) {
+            if (current_char == '/' && prev_char == '*') {
+                inside_multiline_comment = false;
+                prev_char = '\0';
+                current_char = '\0';
             }
         } else {
-            if (currentChar == '"') {
-                insideString = true;
-            } else if (currentChar == '*' && prevChar == '/') {
-                insideMultilineComment = true;
-            } else if (currentChar == '/' && prevChar == '/') {
-                insideSingleLineComment = true;
+            if (current_char == '"') {
+                inside_string = true;
+            } else if (current_char == '*' && prev_char == '/') {
+                inside_multiline_comment = true;
+            } else if (current_char == '/' && prev_char == '/') {
+                inside_single_line_comment = true;
             }
         }
-        if (!insideSingleLineComment && !insideMultilineComment) {
-            if (prevChar == '/') {
-                putchar(prevChar);
+        if (!inside_single_line_comment && !inside_multiline_comment) {
+            if (prev_char == '/') {
+                putchar(prev_char);
             }
-            if (currentChar != '/' && currentChar != '\0') {
-                putchar(currentChar);
+            if (current_char != '/' && current_char != '\0') {
+                putchar(current_char);
             }
         }
-        prevChar = currentChar;
+        prev_char = current_char;
     }
 }

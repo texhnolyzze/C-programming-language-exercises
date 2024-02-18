@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "htoi.h"
 #include "utils/io/io.h"
 

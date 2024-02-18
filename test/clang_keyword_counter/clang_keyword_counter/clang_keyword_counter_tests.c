@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdbool.h>
 #include "unity.h"
 #include "clang_keyword_counter/clang_keyword_counter.h"
 #include "utils/test_utils/test_utils.h"

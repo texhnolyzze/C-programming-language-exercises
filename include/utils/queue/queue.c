@@ -41,7 +41,7 @@ void * queue_remove(struct queue *q) {
     size_t size = queue_size(q);
     if (size == 0) {
         fprintf(stderr, "remove: queue empty\n");
-        return nullptr;
+        return NULL;
     }
     char *res = q->q[q->start];
     if (q->start == q->capacity - 1) {
