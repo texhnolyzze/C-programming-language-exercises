@@ -10,14 +10,21 @@ struct btree_node {
     struct btree_node *right;
 };
 
-struct btree_node *binary_tree_create();
+struct btree {
+    size_t size;
+    struct btree_node *root;
 
-void binary_tree_free(struct btree_node *root, bool free_key, bool free_value);
+    const int (*cmp)(const void *, const void *);
+};
 
-int binary_tree_put(struct btree_node *root, void *key, void *value, int (*cmp)(const void *, const void *));
+struct btree *binary_tree_create(const int (*cmp)(const void *, const void *));
 
-struct btree_node *binary_tree_search(struct btree_node *root, void *key, int (*cmp)(const void *, const void *));
+void binary_tree_free(struct btree *tree, bool free_key, bool free_value);
 
-void binary_tree_traverse(struct btree_node *root, void (*callback)(struct btree_node *));
+int binary_tree_put(struct btree *tree, void *key, void *value);
+
+struct btree_node *binary_tree_search(struct btree *tree, void *key);
+
+void binary_tree_traverse(struct btree *tree, void (*callback)(struct btree_node *));
 
 #endif //SANDBOXTEST_BINARY_TREE_H

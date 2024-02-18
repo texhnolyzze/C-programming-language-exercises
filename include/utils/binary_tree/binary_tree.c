@@ -3,90 +3,120 @@
 #include <stdio.h>
 #include "binary_tree.h"
 
-struct btree_node *binary_tree_create() {
-    struct btree_node *result = malloc(sizeof(struct btree_node));
+struct btree *binary_tree_create(const int (*cmp)(const void *, const void *)) {
+    struct btree *result = malloc(sizeof(struct btree));
     if (result == NULL) {
         fprintf(stderr, "binary_tree_create: not enough memory\n");
         return NULL;
     }
-    result->key = NULL;
-    result->value = NULL;
-    result->left = NULL;
-    result->right = NULL;
+    result->size = 0;
+    result->root = NULL;
+    result->cmp = cmp;
     return result;
 }
 
-void binary_tree_free(struct btree_node *root, bool free_key, bool free_value) {
-    if (root == NULL) {
+static void free_node(struct btree_node *node, bool free_key, bool free_value) {
+    if (node == NULL) {
         return;
     }
-    if (free_key) {
-        free(root->key);
+    if (free_key && node->key != NULL) {
+        free(node->key);
     }
-    if (free_value && root->value != NULL) {
-        free(root->value);
+    if (free_value && node->value != NULL) {
+        free(node->value);
     }
-    binary_tree_free(root->left, free_key, free_value);
-    binary_tree_free(root->right, free_key, free_value);
-    free(root);
+    free_node(node->left, free_key, free_value);
+    free_node(node->right, free_key, free_value);
+    free(node);
 }
 
-int binary_tree_put(struct btree_node *root, void *key, void *value, int (*cmp)(const void *, const void *)) {
-    if (root->key == NULL) {
-        root->key = key;
-        root->value = value;
-        return 0;
+void binary_tree_free(struct btree *tree, bool free_key, bool free_value) {
+    if (tree == NULL) {
+        return;
     }
-    int c = cmp(key, root->key);
-    if (c < 0) {
-        if (root->left == NULL) {
-            root->left = binary_tree_create();
-            if (root->left == NULL) {
-                return -1;
-            }
-            root->left->key = key;
-            root->left->value = value;
-            return 0;
-        } else {
-            return binary_tree_put(root->left, key, value, cmp);
+    if (tree->size != 0) {
+        free_node(tree->root, free_key, free_value);
+    }
+    free(tree);
+}
+
+static struct btree_node *put(
+        struct btree_node *root,
+        void *key,
+        void *value,
+        const int (*cmp)(const void *, const void *),
+        int *err_code
+) {
+    if (root == NULL) {
+        struct btree_node *node = malloc(sizeof(struct btree_node));
+        if (node == NULL) {
+            fprintf(stderr, "binary_tree.put: not enough memory\n");
+            *err_code = -1;
+            return NULL;
         }
-    } else if (c > 0) {
-        if (root->right == NULL) {
-            root->right = binary_tree_create();
-            if (root->right == NULL) {
-                return -1;
-            }
-            root->right->key = key;
-            root->right->value = value;
-            return 0;
-        } else {
-            return binary_tree_put(root->right, key, value, cmp);
-        }
+        node->left = NULL;
+        node->right = NULL;
+        node->key = key;
+        node->value = value;
+        return node;
     } else {
-        root->value = value;
-        return 0;
+        int c = cmp(key, root->key);
+        if (c < 0) {
+            root->left = put(root->left, key, value, cmp, err_code);
+        } else if (c > 0) {
+            root->right = put(root->right, key, value, cmp, err_code);
+        } else {
+            root->value = value;
+        }
+        return root;
     }
 }
 
-struct btree_node *binary_tree_search(struct btree_node *root, void *key, int (*cmp)(const void *, const void *)) {
-    if (root == NULL || root->key == NULL) {
+int binary_tree_put(struct btree *tree, void *key, void *value) {
+    if (tree == NULL) {
+        return -2;
+    }
+    int err_code = 0;
+    tree->root = put(tree->root, key, value, tree->cmp, &err_code);
+    if (err_code == 0) {
+        tree->size++;
+    }
+    return err_code;
+}
+
+static struct btree_node *search(struct btree_node *root, void *key, const int (*cmp)(const void *, const void *)) {
+    if (root == NULL) {
         return NULL;
     }
     int c = cmp(key, root->key);
     if (c < 0) {
-        return binary_tree_search(root->left, key, cmp);
+        return search(root->left, key, cmp);
     } else if (c > 0) {
-        return binary_tree_search(root->right, key, cmp);
+        return search(root->right, key, cmp);
     } else {
         return root;
     }
 }
 
-void binary_tree_traverse(struct btree_node *root, void (*callback)(struct btree_node *)) {
-    if (root == NULL || root->key == NULL) {
+struct btree_node *binary_tree_search(struct btree *tree, void *key) {
+    if (tree == NULL || tree->size == 0) {
+        return NULL;
+    }
+    return search(tree->root, key, tree->cmp);
+}
+
+static void traverse(struct btree_node *node, void (*callback)(struct btree_node *)) {
+    if (node == NULL) {
         return;
     }
-    binary_tree_traverse(root->left, callback);
-    callback(root);
-    binary_tree_traverse(root->right, callback);
+    traverse(node->left, callback);
+    callback(node);
+    traverse(node->right, callback);
+}
+
+void binary_tree_traverse(struct btree *tree, void (*callback)(struct btree_node *)) {
+    if (tree == NULL || tree->size == 0) {
+        return;
+    }
+    traverse(tree->root, callback);
 }

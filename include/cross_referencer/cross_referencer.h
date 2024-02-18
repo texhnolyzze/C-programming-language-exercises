@@ -1,8 +1,8 @@
 #ifndef SANDBOXTEST_CROSS_REFERENCER_H
 #define SANDBOXTEST_CROSS_REFERENCER_H
 
-int cross_reference_init(int argc, const char **argv);
+struct btree *build_cross_reference(size_t max_word_len);
 
-void cross_reference(void);
+void free_cross_reference(struct btree *tree);
 
 #endif //SANDBOXTEST_CROSS_REFERENCER_H

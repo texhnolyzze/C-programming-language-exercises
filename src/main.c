@@ -13,7 +13,8 @@
 #include "sort/sort.h"
 #include "dcl/dcl.h"
 #include "clang_keyword_counter/clang_keyword_counter.h"
-#include "cross_referencer/cross_referencer.h"
+#include "cross_referencer/cross_reference_printer.h"
+#include "word_frequency/word_frequency.h"
 
 #define INIT(x) { \
     int err = x; \
@@ -65,8 +66,11 @@ int main(int argc, const char **argv) {
     } else if (strcmp(subroutine_name, "clang_keyword_counter") == 0) {
         function_ptr = &count_keywords;
     } else if (strcmp(subroutine_name, "cross_reference") == 0) {
-        INIT(cross_reference_init(subroutine_argc, subroutine_argv))
-        function_ptr = &cross_reference;
+        INIT(cross_reference_printer_init(subroutine_argc, subroutine_argv))
+        function_ptr = &cross_reference_print;
+    } else if (strcmp(subroutine_name, "word_frequency") == 0) {
+        INIT(init_word_frequency(subroutine_argc, subroutine_argv))
+        function_ptr = &word_frequency;
     } else {
         fprintf(stderr, "Unknown subroutine %s", subroutine_name);
         return -1;

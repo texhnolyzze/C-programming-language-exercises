@@ -53,6 +53,10 @@ add_library(common STATIC
         utils/word_tokenizer/word_tokenizer.h
         utils/test_utils/test_utils.h
         utils/test_utils/test_utils.c
+        cross_referencer/cross_reference_printer.c
+        cross_referencer/cross_reference_printer.h
+        word_frequency/word_frequency.c
+        word_frequency/word_frequency.h
 )
 
 target_include_directories(common PUBLIC

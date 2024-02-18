@@ -28,8 +28,8 @@ int cmp(int l, int r) {
     }
 }
 
-void assert_value(struct btree_node *root, int key, int expected) {
-    struct btree_node *node = binary_tree_search(root, (void *) key, (int (*)(const void *, const void *)) cmp);
+void assert_value(struct btree *tree, int key, int expected) {
+    struct btree_node *node = binary_tree_search(tree, (void *) key);
     if (expected == 0) {
         TEST_ASSERT_NULL(node);
     } else {
@@ -39,18 +39,17 @@ void assert_value(struct btree_node *root, int key, int expected) {
 }
 
 void test() {
-    struct btree_node *root = binary_tree_create();
-    int (*cmp_func)(const void *, const void *) = (int (*)(const void *, const void *)) cmp;
-    binary_tree_put(root, (void *) 1, (void *) 2, cmp_func);
-    assert_value(root, 1, 2);
-    binary_tree_put(root, (void *) 1, (void *) 3, cmp_func);
-    assert_value(root, 1, 3);
-    binary_tree_put(root, (void *) -1, (void *) 4, cmp_func);
-    assert_value(root, -1, 4);
-    assert_value(root, 5, 0);
-    binary_tree_put(root, (void *) 5, (void *) 7, cmp_func);
-    assert_value(root, 5, 7);
-    binary_tree_free(root, false, false);
+    struct btree *tree = binary_tree_create((const int (*)(const void *, const void *)) cmp);
+    binary_tree_put(tree, (void *) 1, (void *) 2);
+    assert_value(tree, 1, 2);
+    binary_tree_put(tree, (void *) 1, (void *) 3);
+    assert_value(tree, 1, 3);
+    binary_tree_put(tree, (void *) -1, (void *) 4);
+    assert_value(tree, -1, 4);
+    assert_value(tree, 5, 0);
+    binary_tree_put(tree, (void *) 5, (void *) 7);
+    assert_value(tree, 5, 7);
+    binary_tree_free(tree, false, false);
 }
 
 struct random_test_data {
@@ -66,34 +65,21 @@ void random_test() {
         data[i].key = random_unseen_key(data, i);
         data[i].value = rand();
     }
-    struct btree_node *root = binary_tree_create();
+    struct btree *tree = binary_tree_create((const int (*)(const void *, const void *)) cmp);
     for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-        TEST_ASSERT_EQUAL(NULL, binary_tree_search(root, (void *) data[i].key, (int (*)(const void *, const void *)) cmp));
-        binary_tree_put(
-                root,
-                (void *) data[i].key,
-                (void *) data[i].value,
-                (int (*)(const void *, const void *)) cmp
-        );
+        TEST_ASSERT_EQUAL(NULL, binary_tree_search(tree, (void *) data[i].key));
+        binary_tree_put(tree, (void *) data[i].key, (void *) data[i].value);
     }
     for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-        struct btree_node *node = binary_tree_search(
-                root,
-                (void *) data[i].key,
-                (int (*)(const void *, const void *)) cmp
-        );
+        struct btree_node *node = binary_tree_search(tree, (void *) data[i].key);
         TEST_ASSERT_EQUAL_INT(data[i].value, node->value);
     }
-    binary_tree_traverse(root, increment_value);
+    binary_tree_traverse(tree, increment_value);
     for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-        struct btree_node *node = binary_tree_search(
-                root,
-                (void *) data[i].key,
-                (int (*)(const void *, const void *)) cmp
-        );
+        struct btree_node *node = binary_tree_search(tree, (void *) data[i].key);
         TEST_ASSERT_EQUAL_INT(data[i].value + 1, node->value);
     }
-    binary_tree_free(root, false, false);
+    binary_tree_free(tree, false, false);
 }
 
 int random_unseen_key(struct random_test_data *data, int idx) {

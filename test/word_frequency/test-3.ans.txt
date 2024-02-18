@@ -1,0 +1,8 @@
+11: [a]
+7: [the]
+6: [and, he]
+5: [of]
+4: [his, out, to]
+3: [fur, lay]
+2: [Gregor, His, It, Samsa, in, into, it, little, on, that, was, with]
+1: [A, Drops, He, One, The, able, about, above, although, an, any, arches, arm, armour-like, as, at, back,, bed, bedding, belly,, between, boa, brown, by, collection, compared, could, cover, covered, cut, divided, domed, dream., dreams,, dull, familiar, fitted, found, four, frame., from, gilded, had, happened, hardly, hat, head, heavy, helplessly, her, him,, himself, horrible, housed, human, hung, if, illustrated, its, lady, legs,, lifted, look, looked., lower, magazine, many, me?", moment., morning,, muff, nice,, off, peacefully, picture, pitifully, proper, raising, ready, recently, rest, room, room,, salesman, samples, sat, sections., see, seemed, showed, size, slide, slightly, small,, spread, stiff, table, textile, then, there, thin, thought., too, towards, transformed, travelling, troubled, turned, upright,, vermin., viewer., walls., wasn't, waved, weather., when, who, whole, window, woke]
