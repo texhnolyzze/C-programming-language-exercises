@@ -57,7 +57,7 @@ void test_mystrcat() {
 
 void test_clone() {
     TEST_ASSERT_EQUAL_STRING("abracadabra", clone("abracadabra"));
-    char *ptr = "abracadabra";
+    const char *ptr = "abracadabra";
     TEST_ASSERT_FALSE(ptr == clone(ptr));
     TEST_ASSERT_EQUAL_STRING("", clone(""));
 }

@@ -57,6 +57,8 @@ add_library(common STATIC
         cross_referencer/cross_reference_printer.h
         word_frequency/word_frequency.c
         word_frequency/word_frequency.h
+        utils/hash_table/hash_table.c
+        utils/hash_table/hash_table.h
 )
 
 target_include_directories(common PUBLIC

@@ -2,13 +2,12 @@
 #include <time.h>
 #include "unity.h"
 #include "utils/list/list.h"
+#include "utils/test_utils/test_utils.h"
 
 size_t sum_up(struct list *l);
 
 void setUp() {
-    time_t t;
-    time(&t);
-    srand(t);
+    setup_random();
 }
 
 void tearDown() {

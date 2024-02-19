@@ -20,7 +20,7 @@ void queue_add(struct queue *q, void *elem);
 
 void * queue_remove(struct queue *q);
 
-size_t queue_size(struct queue *q);
+size_t queue_size(const struct queue *q);
 
 void queue_free(struct queue *q, bool free_elems);
 

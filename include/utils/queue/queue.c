@@ -53,7 +53,7 @@ void * queue_remove(struct queue *q) {
     return res;
 }
 
-size_t queue_size(struct queue *q) {
+size_t queue_size(const struct queue *q) {
     return q->size;
 }
 

@@ -29,7 +29,7 @@ static int cmp(size_t s1, size_t s2) {
 static struct btree *index;
 
 static void index_by_word_frequency(struct btree_node *cross_ref_node) {
-    struct list *indices = (struct list *) cross_ref_node->value;
+    const struct list *indices = (struct list *) cross_ref_node->value;
     struct btree_node *index_node = binary_tree_search(index, (void *) indices->size);
     struct list *words;
     if (index_node == NULL) {

@@ -2,11 +2,10 @@
 #include <time.h>
 #include "unity.h"
 #include "utils/binary_tree/binary_tree.h"
+#include "utils/test_utils/test_utils.h"
 
 void setUp() {
-    time_t rawtime;
-    time(&rawtime);
-    srand(rawtime);
+    setup_random();
 }
 
 void tearDown() {
@@ -52,53 +51,25 @@ void test() {
     binary_tree_free(tree, false, false);
 }
 
-struct random_test_data {
-    int key;
-    int value;
-};
-
-int random_unseen_key(struct random_test_data *data, int idx);
-
 void random_test() {
-    struct random_test_data data[10000];
-    for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-        data[i].key = random_unseen_key(data, i);
-        data[i].value = rand();
-    }
+    size_t n = 10000;
+    struct random_test_key_value *data = create_random_test_key_values(n);
     struct btree *tree = binary_tree_create((const int (*)(const void *, const void *)) cmp);
-    for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
+    for (int i = 0; i < n; ++i) {
         TEST_ASSERT_EQUAL(NULL, binary_tree_search(tree, (void *) data[i].key));
         binary_tree_put(tree, (void *) data[i].key, (void *) data[i].value);
     }
-    for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
+    for (int i = 0; i < n; ++i) {
         struct btree_node *node = binary_tree_search(tree, (void *) data[i].key);
         TEST_ASSERT_EQUAL_INT(data[i].value, node->value);
     }
     binary_tree_traverse(tree, increment_value);
-    for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
+    for (int i = 0; i < n; ++i) {
         struct btree_node *node = binary_tree_search(tree, (void *) data[i].key);
         TEST_ASSERT_EQUAL_INT(data[i].value + 1, node->value);
     }
     binary_tree_free(tree, false, false);
-}
-
-int random_unseen_key(struct random_test_data *data, int idx) {
-    for (;;) {
-        int key = rand();
-        if (key == 0) {
-            continue;
-        }
-        bool unseen = true;
-        for (int i = 0; i < idx; i++) {
-            if (data[i].key == key) {
-                unseen = false;
-                break;
-            }
-        }
-        if (unseen) {
-            return key;
-        }
-    }
+    free(data);
 }
 
 int main(void) {
