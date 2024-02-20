@@ -34,4 +34,6 @@ int hash_table_put(struct hash_table *table, void *key, void *value);
 
 struct ht_node *hash_table_get(const struct hash_table *table, const void *key);
 
+void *hash_table_remove(struct hash_table *table, const void *key, bool free_node_key);
+
 #endif //SANDBOX_HASH_TABLE_H

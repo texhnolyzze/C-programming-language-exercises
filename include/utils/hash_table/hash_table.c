@@ -158,3 +158,33 @@ void hash_table_free(struct hash_table *table, bool free_keys, bool free_values)
     free(table);
 }
 
+void *hash_table_remove(struct hash_table *table, const void *key, bool free_node_key) {
+    size_t bucket = table->hash(key) % table->capacity;
+    struct ht_node *prev = NULL;
+    struct ht_node *node = table->nodes[bucket];
+    bool found = false;
+    while (node != NULL) {
+        if (table->equals(key, node->key)) {
+            found = true;
+            break;
+        }
+        prev = node;
+        node = node->next;
+    }
+    if (!found) {
+        return NULL;
+    }
+    if (prev == NULL) {
+        table->nodes[bucket] = node->next;
+    } else {
+        prev->next = node->next;
+    }
+    if (free_node_key) {
+        free(node->key);
+    }
+    void *value = node->value;
+    free(node);
+    table->size--;
+    return value;
+}
+
