@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
 #include "cross_referencer.h"
 #include "utils/word_tokenizer/word_tokenizer.h"
 #include "utils/strings/strings.h"
@@ -33,26 +34,28 @@ struct btree *build_cross_reference(const size_t max_word_len) {
             break;
         }
         char *word = tokenizer->word;
-        char *word_dup = strdup_len_known(word, tokenizer->word_len);
-        if (word_dup == NULL) {
-            fprintf(stderr, "Can't duplicate word %s (not enough memory)\n", word);
-            word_tokenizer_free(tokenizer);
-            free_cross_reference(tree);
-            return NULL;
-        }
-        struct btree_node *node = binary_tree_search(tree, word_dup);
+        struct btree_node *node = binary_tree_search(tree, word);
         struct list *indices;
         if (node == NULL) {
+            char *word_dup = strdup_len_known(word, tokenizer->word_len);
+            if (word_dup == NULL) {
+                fprintf(stderr, "Can't duplicate word %s (not enough memory)\n", word);
+                word_tokenizer_free(tokenizer);
+                free_cross_reference(tree);
+                return NULL;
+            }
             indices = list_create();
             if (indices == NULL) {
                 word_tokenizer_free(tokenizer);
                 free_cross_reference(tree);
+                free(word_dup);
                 return NULL;
             }
             if (binary_tree_put(tree, word_dup, indices) != 0) {
                 word_tokenizer_free(tokenizer);
                 free_cross_reference(tree);
                 list_free(indices, false);
+                free(word_dup);
                 return NULL;
             }
         } else {

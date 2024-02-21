@@ -20,7 +20,7 @@ static void free_node(struct btree_node *node, bool free_key, bool free_value) {
     if (node == NULL) {
         return;
     }
-    if (free_key && node->key != NULL) {
+    if (free_key) {
         free(node->key);
     }
     if (free_value && node->value != NULL) {
