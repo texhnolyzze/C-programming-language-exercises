@@ -7,6 +7,9 @@
 size_t min(size_t a, size_t b);
 
 int read_line(char line[], const size_t limit) {
+    if (limit == 0) {
+        return -1;
+    }
     int i = 0;
     int c;
     for (; i < limit; ++i) {
@@ -100,7 +103,7 @@ char **read_lines_dyn(
     }
     char *line;
     size_t chars_read;
-    for (;*lines_read < max_lines;) {
+    while (*lines_read < max_lines) {
         chars_read = 0;
         line = read_line_dyn(max_chars_per_line, initial_line_size, exit_code, &chars_read);
         if (*exit_code == -2) {
@@ -111,6 +114,7 @@ char **read_lines_dyn(
             *lines_read = 0;
             return NULL;
         } else if (*exit_code == -1 && chars_read == 0) {
+            free(line);
             break;
         } else {
             *(lines + *lines_read) = line;

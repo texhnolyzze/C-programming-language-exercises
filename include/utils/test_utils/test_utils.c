@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "test_utils.h"
+#include "utils/io/io.h"
 
 void restore_stdout(void) {
 #ifdef _WIN32
