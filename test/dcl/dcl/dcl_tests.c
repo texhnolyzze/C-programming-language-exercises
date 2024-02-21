@@ -1,3 +1,4 @@
+#include <malloc.h>
 #include "unity.h"
 #include "dcl/dcl.h"
 #include "utils/io/io.h"
@@ -37,6 +38,7 @@ void invoke_test_file(char *filename, char *expected) {
     size_t chars_read;
     char *line = read_line_dyn(1000, 1000, &exit_code, &chars_read);
     TEST_ASSERT_EQUAL_STRING(expected, line);
+    free(line);
 }
 
 int main(void) {
