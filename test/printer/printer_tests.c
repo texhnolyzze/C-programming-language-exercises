@@ -7,7 +7,7 @@ void test_file(int test_num);
 void setUp(void) {
     const char *args[4] = {
             "-f", "120",
-            "-ml", "1350"
+            "-mw", "100"
     };
     TEST_ASSERT_EQUAL_INT(0, printer_init(4, args));
 }
