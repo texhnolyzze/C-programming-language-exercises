@@ -40,9 +40,9 @@ struct key key_table[] = {
         "while", 0
 };
 
-#define N_KEYWORDS sizeof(key_table) / sizeof(key_table[0])
+#define N_KEYWORDS (sizeof(key_table) / sizeof(key_table[0]))
 
-int cmp(char *word, struct key key) {
+static int cmp(const char *word, struct key key) {
     return strcmp(word, key.word);
 }
 
@@ -63,7 +63,7 @@ void count_keywords(void) {
             }
         }
     }
-    for (struct key *key = key_table; key < key_table + N_KEYWORDS; key++) {
+    for (const struct key *key = key_table; key < key_table + N_KEYWORDS; key++) {
         if (key->count > 0) {
             printf("%4zu %s\n", key->count, key->word);
         }

@@ -59,6 +59,8 @@ add_library(common STATIC
         word_frequency/word_frequency.h
         utils/hash_table/hash_table.c
         utils/hash_table/hash_table.h
+        printer/printer.c
+        printer/printer.h
 )
 
 target_include_directories(common PUBLIC
