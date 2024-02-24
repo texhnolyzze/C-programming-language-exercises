@@ -61,6 +61,8 @@ add_library(common STATIC
         utils/hash_table/hash_table.h
         printer/printer.c
         printer/printer.h
+        fcmp/fcmp.c
+        fcmp/fcmp.h
 )
 
 target_include_directories(common PUBLIC

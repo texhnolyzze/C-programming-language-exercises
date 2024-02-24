@@ -16,6 +16,7 @@
 #include "cross_referencer/cross_reference_printer.h"
 #include "word_frequency/word_frequency.h"
 #include "printer/printer.h"
+#include "fcmp/fcmp.h"
 
 #define INIT(x) { \
     int err = x; \
@@ -75,6 +76,9 @@ int main(int argc, const char **argv) {
     } else if (strcmp(subroutine_name, "printer") == 0) {
         INIT(printer_init(subroutine_argc, subroutine_argv))
         function_ptr = &printer;
+    } else if (strcmp(subroutine_name, "fcmp") == 0) {
+        INIT(fcmp_init(subroutine_argc, subroutine_argv))
+        function_ptr = &fcmp;
     } else {
         fprintf(stderr, "Unknown subroutine %s", subroutine_name);
         return -1;
