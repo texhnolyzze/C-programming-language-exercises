@@ -63,6 +63,8 @@ add_library(common STATIC
         printer/printer.h
         fcmp/fcmp.c
         fcmp/fcmp.h
+        mymalloc/mymalloc.c
+        mymalloc/mymalloc.h
 )
 
 target_include_directories(common PUBLIC

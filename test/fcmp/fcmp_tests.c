@@ -1,4 +1,5 @@
 #include <unity.h>
+#include <unistd.h>
 #include "utils/test_utils/test_utils.h"
 #include "fcmp/fcmp.h"
 

@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <time.h>
 #include "unity.h"
 #include "utils/list/list.h"
 #include "utils/test_utils/test_utils.h"
