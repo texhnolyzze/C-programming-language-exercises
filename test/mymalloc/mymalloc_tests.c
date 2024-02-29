@@ -1,8 +1,9 @@
+#include <time.h>
 #include "unity.h"
 #include "mymalloc/mymalloc.h"
 #include "utils/test_utils/test_utils.h"
 
-#define N 10000
+#define N 100000
 
 void setUp() {
     setup_random();
@@ -45,6 +46,14 @@ void test(void) {
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test);
+    clock_t start = clock();
+    int n = 10;
+    for (int i = 0; i < n; ++i) {
+        RUN_TEST(test);
+        osfree();
+    }
+    clock_t end = clock();
+    double ms_passed = (double) (end - start) / CLOCKS_PER_SEC / n * 1000.0F;
+    printf("%f\n", ms_passed);
     return UNITY_END();
 }

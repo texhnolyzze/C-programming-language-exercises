@@ -11,4 +11,9 @@ size_t total_free_memory();
 
 size_t total_allocated();
 
+/**
+ * Release all allocated memory to OS
+ */
+void osfree();
+
 #endif //SANDBOX_MYMALLOC_H

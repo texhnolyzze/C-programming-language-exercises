@@ -12,7 +12,7 @@ typedef struct header Header;
 
 static Header *head;
 
-const size_t MIN_UNITS = 32;
+const size_t MIN_UNITS = 64 * 1024;
 
 size_t allocated = 0;
 
@@ -87,6 +87,19 @@ void *mymalloc(size_t bytes) {
     }
 }
 
+static void compact() {
+    Header *curr = head;
+    Header *temp;
+    while (curr != NULL) {
+        while (curr->next == curr + curr->units) {
+            temp = curr->next;
+            curr->next = temp->next;
+            curr->units += temp->units;
+        }
+        curr = curr->next;
+    }
+}
+
 void myfree(void *memory) {
     Header *h = memory;
     h--;
@@ -106,6 +119,7 @@ void myfree(void *memory) {
                 } else {
                     h->next = curr;
                 }
+                compact();
                 return;
             } else {
                 prev->next = h;
@@ -115,6 +129,7 @@ void myfree(void *memory) {
                 } else {
                     h->next = curr;
                 }
+                compact();
                 return;
             }
         } else {
@@ -127,6 +142,7 @@ void myfree(void *memory) {
     } else {
         prev->next = h;
     }
+    compact();
 }
 
 size_t total_free_memory() {
@@ -141,4 +157,17 @@ size_t total_free_memory() {
 
 size_t total_allocated() {
     return allocated;
+}
+
+void osfree() {
+    compact();
+    Header *temp;
+    Header *curr = head;
+    while (curr != NULL) {
+        allocated -= curr->units * sizeof(Header);
+        temp = curr->next;
+        HeapFree(GetProcessHeap(), 0, curr);
+        curr = temp;
+    }
+    head = NULL;
 }
