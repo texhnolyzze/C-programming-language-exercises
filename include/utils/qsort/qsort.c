@@ -41,7 +41,6 @@ static size_t partition(
         const size_t right,
         const size_t elem_size,
         char partition_elem[],
-        char temp_bytes[],
         const int (*cmp)(const void *, const void *)
 ) {
     size_t partition_elem_idx = select_partition_elem(arr, elem_size, left, right, cmp);
@@ -113,7 +112,6 @@ static void qsort(
         const size_t left,
         const size_t right,
         const size_t elem_size,
-        char partition_elem[],
         char temp_bytes[],
         const int (*cmp)(const void *, const void *)
 ) {
@@ -124,15 +122,14 @@ static void qsort(
         insertion_sort(arr, left, right, elem_size, temp_bytes, cmp);
         return;
     }
-    size_t i = partition(arr, left, right, elem_size, partition_elem, temp_bytes, cmp);
+    size_t i = partition(arr, left, right, elem_size, temp_bytes, cmp);
     if (i != 0) {
-        qsort(arr, left, i - 1, elem_size, partition_elem, temp_bytes, cmp);
+        qsort(arr, left, i - 1, elem_size, temp_bytes, cmp);
     }
-    qsort(arr, i + 1, right, elem_size, partition_elem, temp_bytes, cmp);
+    qsort(arr, i + 1, right, elem_size, temp_bytes, cmp);
 }
 
 void myqsort(void *arr, const size_t len, const size_t elem_size, const int (*cmp)(const void *, const void *)) {
-    char partition_elem[elem_size];
     char temp_bytes[elem_size];
-    qsort(arr, 0, len - 1, elem_size, partition_elem, temp_bytes, cmp);
+    qsort(arr, 0, len - 1, elem_size, temp_bytes, cmp);
 }
