@@ -1,12 +1,6 @@
 #include <string.h>
 #include "qsort.h"
 
-static inline void swap(void *arr, const size_t x, const size_t y, const size_t elem_size, char temp_bytes[]) {
-    memcpy(temp_bytes, arr + x * elem_size, elem_size);
-    memcpy(arr + x * elem_size, arr + y * elem_size, elem_size);
-    memcpy(arr + y * elem_size, temp_bytes, elem_size);
-}
-
 static inline size_t select_partition_elem(
         const void *arr,
         const size_t elem_size,
@@ -54,7 +48,7 @@ static size_t partition(
     memcpy(partition_elem, arr + partition_elem_idx * elem_size, elem_size);
     size_t lo = left;
     size_t hi = right;
-    swap(arr, partition_elem_idx, lo, elem_size, temp_bytes);
+    memcpy(arr + partition_elem_idx * elem_size, arr + lo * elem_size, elem_size);
     for (;;) {
         for (;;) {
             const void *hi_elem = arr + hi * elem_size;
