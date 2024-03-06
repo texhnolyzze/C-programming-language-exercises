@@ -65,6 +65,8 @@ add_library(common STATIC
         fcmp/fcmp.h
         mymalloc/mymalloc.c
         mymalloc/mymalloc.h
+        utils/qsort/qsort.c
+        utils/qsort/qsort.h
 )
 
 target_include_directories(common PUBLIC
